@@ -9,8 +9,8 @@ config = configparser.ConfigParser()
 
 config.read('config.ini')
 
-spotify_id = config.get('spotifyapi', 'spotify_id')
-spotify_secret = config.get('spotifyapi', 'spotify_secret')
+spotify_id = config.get('spotipy', 'client_id')
+spotify_secret = config.get('spotipy', 'client_secret')
 access_token = None
 
 def start_token_thread():
