@@ -15,7 +15,12 @@ from util.deezer import get_deezer_track
 warnings.filterwarnings("ignore", category=CryptographyDeprecationWarning)
 load_dotenv()
 
-arl = os.environ.get("deezer_arl")
+config = configparser.ConfigParser()
+
+config.read('config.ini')
+
+arl = config.get('deezerapi', 'deezer_arl')
+
 DOWNLOAD_DIR = "./music/"
 CACHE_DIR = "./cache/"
 ZIP_DIR = "./zip/"
