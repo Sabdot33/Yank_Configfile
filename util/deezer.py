@@ -1,11 +1,15 @@
+import configparser
 import asyncio
 import os
 
 from dotenv import load_dotenv
 import httpx
 
-load_dotenv()
-arl = os.environ.get("deezer_arl")
+config = configparser.ConfigParser()
+
+config.read('config.ini')
+
+arl = config.get('deezerapi', 'deezer_arl')
 
 headers = {"Accept-Encoding": "gzip, deflate"}
 cookies = {'arl': arl}
