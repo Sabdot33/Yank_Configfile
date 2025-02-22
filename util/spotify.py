@@ -4,9 +4,12 @@ import httpx
 import time
 import base64
 
-load_dotenv()
-spotify_id = os.environ.get("spotify_id")
-spotify_secret = os.environ.get("spotify_secret")
+config = configparser.ConfigParser()
+
+config.read('config.ini')
+
+spotify_id = config.get('spotifyapi', 'spotify_id')
+spotify_secret = config.get('spotifyapi', 'spotify_secret')
 access_token = None
 
 def start_token_thread():
