@@ -1,5 +1,6 @@
 import os
 import threading
+import configparser
 from contextlib import suppress
 
 from dotenv import load_dotenv
@@ -12,9 +13,12 @@ from util.statistics import totalCaches, totalSongs, totalPlaylists, totalSongDa
 app = Quart(__name__)
 app = cors(app, allow_origin="*")
 
-load_dotenv()
-port = os.environ.get("PORT")
-ip = os.environ.get("IP")
+config = configparser.ConfigParser()
+
+config.read('config.ini')
+
+port = config.get('server', 'port', fallback='7000')
+ip = config.get('server', 'ip', fallback='127.0.0.1')
 
 @app.route('/track/<string:id>')
 async def serve_audio(id):
@@ -73,7 +77,7 @@ token_thread.start()
 
 if __name__ == '__main__':
     for directory in {CACHE_DIR, ZIP_DIR, DOWNLOAD_DIR}:
-        with suppress(FileExistsError):
+        with suppress(FileExistsError):    
             os.mkdir(directory)
 
     app.run(ip, port=port)
